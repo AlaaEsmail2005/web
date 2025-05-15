@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Task</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Add New Task</h1>
+    <form id="add-form">
+      <input type="text" id="new-title" placeholder="Task title..." required>
+      <button type="submit">Add</button>
+    </form>
+  </div>
+  <script>
+    document.getElementById('add-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newTitle = document.getElementById('new-title').value;
+      let tasks = JSON.parse(localStorage.getItem('localTasks')) || [];
+      const newTask = {
+        id: Date.now(), 
+        title: newTitle,
+        completed: false
+      };
+      tasks.push(newTask);
+      localStorage.setItem('localTasks', JSON.stringify(tasks));
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

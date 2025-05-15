@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Task</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Edit Task</h1>
+    <form id="edit-form">
+      <input type="text" id="edit-title" required>
+      <button type="submit">update</button>
+    </form>
+  </div>
+  <script>
+    const taskId = parseInt(localStorage.getItem('editTaskId'));
+    const tasks = JSON.parse(localStorage.getItem('localTasks')) || [];
+    const task = tasks.find(t => t.id === taskId);
+
+    document.getElementById('edit-title').value = task?.title || '';
+
+    document.getElementById('edit-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newTitle = document.getElementById('edit-title').value;
+      const updatedTasks = tasks.map(t => t.id === taskId ? { ...t, title: newTitle } : t);
+      localStorage.setItem('localTasks', JSON.stringify(updatedTasks));
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
